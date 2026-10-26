@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paisaje Sonoro Táctil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div>
+      <p class="eyebrow">Arte Interactivo · Fase 4 · Prototipo</p>
+      <h1>Paisaje Sonoro Táctil</h1>
+    </div>
+    <div class="status" aria-live="off">
+      <span><b id="visitors">0</b> visitantes</span>
+      <span><b id="active">0</b> zonas activas</span>
+    </div>
+  </header>
+
+  <div class="stage" id="stage">
+    <div class="overlay" id="overlay">
+      <div class="card">
+        <p class="eyebrow">Paisaje Sonoro Táctil</p>
+        <h2>Toca una zona y escucha lo que dibuja</h2>
+        <p>Cada color es un sonido. Si varias personas tocan a la vez, el jardín se mezcla.</p>
+        <div class="row">
+          <button class="btn primary" id="startBtn" type="button">Toca para empezar</button>
+          <button class="btn small" id="silentBtn" type="button">Ver sin sonido</button>
+        </div>
+      </div>
+    </div>
+    <div class="expo-hint" id="expoHint">Pulsa Esc o E para salir</div>
+  </div>
+
+  <section class="legend" id="legend" aria-label="Zonas del paisaje"></section>
+
+  <section class="controls" aria-label="Controles">
+    <button class="btn small" id="soundBtn" type="button">Activar sonido</button>
+    <button class="btn small" id="fsBtn" type="button">Pantalla completa</button>
+    <button class="btn small" id="expoBtn" type="button">Modo exposición (E)</button>
+    <div class="slider">
+      <label for="vol">Volumen <output id="volOut">70 %</output></label>
+      <input id="vol" type="range" min="0" max="1" step="0.01" value="0.7">
+    </div>
+    <div class="slider">
+      <label for="persist">Persistencia del eco <output id="persistOut">3,0 s</output></label>
+      <input id="persist" type="range" min="0.5" max="8" step="0.1" value="3">
+    </div>
+    <div class="loader">
+      <label for="zoneSel">Sonido propio</label>
+      <div class="loadrow">
+        <select id="zoneSel"></select>
+        <button class="btn small" id="loadBtn" type="button">Cargar archivo</button>
+        <input type="file" id="fileIn" accept="audio/*" hidden>
+      </div>
+      <output id="sampleMsg" aria-live="polite">Todas las zonas usan sonido sintetizado.</output>
+    </div>
+  </section>
+
+  <p class="foot">Prototipo hecho con p5.js para la imagen y la interacción, y con Web Audio para el sonido. Los sonidos se sintetizan en vivo, y cada zona puede usar un archivo propio: déjalo en la carpeta audio/ con el nombre de la zona (por ejemplo audio/agua.mp3) o cárgalo con el botón. Las zonas de la lista también se activan con el dedo, el ratón o el teclado (Espacio o Enter).</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+<script src="sketch.js"></script>
+</body>
+</html>

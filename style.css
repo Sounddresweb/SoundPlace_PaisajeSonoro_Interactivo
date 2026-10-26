@@ -1,0 +1,324 @@
+/* ==========================================================================
+   Paisaje Sonoro Táctil · style.css  (versión 2)
+   Basado en los dos videos de referencia.
+
+   INTERFAZ (de Dolby Atmos):
+     - fondo azul-negro (#0f0f18) con barra superior delgada
+     - banda hero en degradado índigo con esfera luminosa
+     - botón en píldora azul-violeta, texto en MAYÚSCULAS, negrita, pequeño
+     - títulos blancos de peso medio, tarjetas de esquinas suaves (~10 px)
+     - acento morado (#a31cf0) en botones secundarios
+
+   TIPOGRAFÍA (de Berl-Berl, LAS Art Foundation, "Fonts by Dinamo"):
+     - grotesca de peso regular (400) con tracking apretado en títulos
+     - cursiva para los nombres de capítulo ("Prav · Sky")
+     - monoespaciada en MAYÚSCULAS diminuta para etiquetas y navegación
+     - barra naranja (#f58a0b) con texto mono como aviso
+   Las fuentes de Dinamo son comerciales: se usan equivalentes de Google Fonts.
+   Si tienes licencia, cambia solo --f-sans y --f-mono.
+   ========================================================================== */
+:root {
+  color-scheme: dark;
+
+  --bg: #0f0f18;
+  --bg-bar: #0b0b12;
+  --surface: #171726;
+  --surface-2: #20203a;
+  --line: #2a2a40;
+  --white: #ffffff;
+  --ink: #f2f2f8;
+  --ink-dim: #a8a8c0;
+
+  --indigo-1: #2e22b8;
+  --indigo-2: #14104f;
+  --indigo-3: #07061c;
+  --btn: #4a3cff;
+  --btn-hover: #6a5eff;
+  --violet: #a31cf0;
+  --orange: #f58a0b;
+  --focus: #ffffff;
+
+  --agua: #5ac8fa;
+  --viento: #c7d2fe;
+  --aves: #ffd166;
+  --voces: #ff7aa2;
+  --tierra: #8fd694;
+
+  --f-sans: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --f-mono: 'DM Mono', ui-monospace, Menlo, monospace;
+  --w-regular: 400;
+  --w-medium: 500;
+  --w-bold: 700;
+
+  --r-pill: 999px;
+  --r-card: 10px;
+  --r-stage: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: var(--w-regular) 15px/1.55 var(--f-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding-block: 0 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 24px;
+}
+
+/* ---------- Cabecera: barra de navegación + título ---------- */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 24px;
+  padding-block: 14px 0;
+}
+.eyebrow {
+  margin: 0;
+  font: var(--w-regular) 11px/1.4 var(--f-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+h1 {
+  margin: 12px 0 0;
+  font: var(--w-regular) clamp(34px, 6vw, 56px)/1.05 var(--f-sans);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  color: var(--white);
+}
+.status {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font: var(--w-regular) 11px/1 var(--f-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-top: 12px;
+}
+.status span { display: inline-flex; gap: 8px; align-items: baseline; }
+.status b { color: var(--white); font-weight: var(--w-medium); font-variant-numeric: tabular-nums; }
+
+/* ---------- Escenario (hero índigo) ---------- */
+.stage {
+  position: relative;
+  width: 100%;
+  height: clamp(380px, 66vh, 740px);
+  border-radius: var(--r-stage);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 80% at 50% 45%, var(--indigo-1) 0%, var(--indigo-2) 48%, var(--indigo-3) 100%);
+  cursor: crosshair;
+}
+.stage:fullscreen { height: 100vh; border-radius: 0; }
+.stage canvas { position: absolute; inset: 0; display: block; }
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(7, 6, 28, 0.78);
+  cursor: default;
+}
+.overlay[hidden] { display: none !important; }
+.card {
+  max-width: 460px;
+  display: grid;
+  gap: 16px;
+  text-align: center;
+  justify-items: center;
+}
+.card h2 {
+  margin: 0;
+  font: var(--w-medium) clamp(26px, 4.5vw, 36px)/1.12 var(--f-sans);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: var(--white);
+}
+.card p { margin: 0; color: var(--ink); font-size: 15px; opacity: 0.85; }
+.card .row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 8px; }
+
+/* ---------- Botones (píldora, mayúsculas, negrita) ---------- */
+.btn {
+  font: var(--w-bold) 12px/1 var(--f-sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 15px 22px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--btn);
+  background: var(--btn);
+  color: var(--white);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.btn:hover { background: var(--btn-hover); border-color: var(--btn-hover); }
+.btn.primary { background: var(--btn); }
+.btn.small {
+  padding: 12px 18px;
+  background: transparent;
+  border-color: var(--violet);
+  color: var(--white);
+}
+.btn.small:hover { background: var(--violet); border-color: var(--violet); }
+.btn:focus-visible, .zone:focus-visible, input[type="range"]:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* ---------- Tarjetas de zona ---------- */
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+.zone {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  text-align: left;
+  padding: 18px 18px 16px;
+  border: 0;
+  border-radius: var(--r-card);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.2s;
+}
+.zone:hover { background: var(--surface-2); }
+.zone .name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: italic var(--w-regular) 22px/1.1 var(--f-sans);
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+.zone .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c); flex: none; }
+.zone .hint {
+  font: var(--w-regular) 10.5px/1.4 var(--f-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.zone .meter { height: 2px; margin-top: 8px; background: var(--line); overflow: hidden; border-radius: var(--r-pill); }
+.zone .meter i {
+  display: block;
+  height: 100%;
+  background: var(--c);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+/* ---------- Controles (con barra naranja de Berl-Berl) ---------- */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 18px 28px;
+  padding: 22px 20px 20px;
+  border-radius: var(--r-card);
+  background: var(--surface);
+  border-top: 4px solid var(--orange);
+}
+.controls .btn.small { align-self: flex-end; }
+.slider {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 220px;
+  max-width: 340px;
+}
+.slider label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font: var(--w-regular) 11px/1.4 var(--f-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.slider output { color: var(--white); letter-spacing: 0; text-transform: none; font-variant-numeric: tabular-nums; }
+input[type="range"] { width: 100%; accent-color: var(--btn-hover); }
+
+.foot {
+  margin: 0;
+  max-width: 70ch;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-dim);
+}
+
+@media (max-width: 520px) {
+  .controls { padding: 18px 16px 16px; }
+}
+
+/* ---------- Pantalla de inicio ---------- */
+.card .eyebrow { margin: 0; flex: none; }
+
+/* ---------- Sonido propio ---------- */
+.loader { display: grid; gap: 10px; min-width: 0; flex: 1 1 280px; max-width: 420px; }
+.loader label {
+  font: var(--w-regular) 11px/1.4 var(--f-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.loadrow { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+select {
+  font: var(--w-regular) 13px/1 var(--f-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--white);
+}
+select:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+#sampleMsg { font: var(--w-regular) 11px/1.5 var(--f-mono); letter-spacing: 0.04em; color: var(--ink-dim); }
+
+/* ---------- Modo exposición: solo la obra ---------- */
+body.expo { overflow: hidden; }
+.expo .top, .expo .legend, .expo .controls, .expo .foot { display: none; }
+.expo .page { max-width: none; padding: 0; gap: 0; }
+.expo .stage { height: 100vh; height: 100dvh; border-radius: 0; cursor: none; }
+.expo #silentBtn { display: none; }
+.expo .card { max-width: 760px; }
+.expo .card h2 { font-size: clamp(34px, 6vw, 72px); }
+.expo .card p { font-size: clamp(16px, 2vw, 22px); }
+.expo .card .btn { font-size: 15px; padding: 20px 34px; }
+.expo-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 9px 16px;
+  border-radius: var(--r-pill);
+  background: rgba(7, 6, 28, 0.8);
+  font: var(--w-regular) 11px/1 var(--f-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.expo-hint.show { opacity: 1; }

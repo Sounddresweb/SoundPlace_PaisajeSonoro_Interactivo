@@ -1,0 +1,7 @@
+Pon aqui tus sonidos con el nombre de la zona:
+  agua.mp3 (o .wav / .ogg)
+  viento.mp3
+  aves.mp3
+  voces.mp3
+  tierra.mp3
+Las zonas sin archivo usan el sonido sintetizado.
